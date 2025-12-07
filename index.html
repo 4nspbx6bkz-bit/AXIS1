@@ -187,5 +187,15 @@
       <button class="btn small" data-back>⟵ Voltar</button>
     </div>
   </div>
+  <link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+      .then(() => console.log("SW registrado"))
+      .catch(err => console.log("Erro SW:", err));
+  }
+</script>
 </body>
 </html>
