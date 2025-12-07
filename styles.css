@@ -1,0 +1,274 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* Barra de status fake */
+#statusBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+/* Painéis */
+.panel {
+  position: absolute;
+  top: 24px; /* abaixo da status bar */
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 24px);
+  display: none;
+  padding: 24px;
+  background: #000;
+  color: #fff;
+}
+
+.panel.active {
+  display: flex;
+}
+
+.panel.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.panel .panel-content {
+  max-width: 420px;
+  width: 100%;
+}
+
+/* Tela cheia para painéis que ocupam tudo */
+#binaryPanel,
+#springboardPanel {
+  padding: 0;
+}
+
+/* Home */
+.app-title {
+  font-size: 32px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Botões */
+.btn {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 12px;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #1e88e5;
+  border-color: #1e88e5;
+}
+
+.btn.small {
+  font-size: 14px;
+  padding: 8px 12px;
+  width: auto;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Textos */
+.instruction {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Labels / inputs */
+.label {
+  display: block;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* SpringBoard fake */
+.springboard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 40px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: radial-gradient(circle at top, #444, #000);
+  background-size: cover;
+  background-position: center;
+}
+
+.springboard-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 18px;
+  grid-column-gap: 12px;
+  justify-items: center;
+}
+
+.icon {
+  width: 64px;
+  text-align: center;
+  font-size: 11px;
+  color: #fff;
+}
+
+.icon-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #555, #999);
+  margin-bottom: 4px;
+}
+
+.icon-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dock */
+.springboard-dock {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 24px;
+  background: rgba(20, 20, 20, 0.8);
+  display: flex;
+  justify-content: space-around;
+  backdrop-filter: blur(10px);
+}
+
+.dock-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dock-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Botão voltar no SpringBoard */
+.springboard-back {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  z-index: 10;
+}
+
+/* Fake Google */
+.fake-google {
+  border-radius: 24px;
+  padding: 24px;
+  background: #111;
+  text-align: center;
+}
+
+.google-logo {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.google-searchbar {
+  margin: 0 auto 12px;
+  max-width: 320px;
+  height: 40px;
+  border-radius: 24px;
+  background: #000;
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+#fakeSearchBar {
+  cursor: text;
+}
+
+/* Overlay de palavras (long press) */
+#overlayPanel {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 24px);
+  background: #000;
+  color: #fff;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px;
+  z-index: 2000;
+}
+
+#overlayList {
+  width: 100%;
+  max-width: 480px;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
