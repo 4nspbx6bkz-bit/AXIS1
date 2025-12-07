@@ -20,7 +20,197 @@
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>NOMEWEB – Protótipo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Barra de status fake (hora, XG, bateria) -->
+  <div id="statusBar">
+    <span id="statusTime">09:41</span>
+    <span id="statusNetwork">5G</span>
+    <span id="statusBattery">100%</span>
+  </div>
+
+  <!-- ========== MENU INICIAL ========== -->
+  <div id="homePanel" class="panel active center">
+    <div class="panel-content">
+      <h1 class="app-title">NOMEWEB</h1>
+      <p class="subtitle">Ferramentas secretas para descobrir palavras</p>
+      <button class="btn primary" id="btnGoPerformance">Performance</button>
+      <button class="btn" id="btnGoSettings">Configurações</button>
+    </div>
+  </div>
+
+  <!-- ========== PERFORMANCE: ESCOLHA DE MODO ========== -->
+  <div id="performancePanel" class="panel center">
+    <div class="panel-content">
+      <h2>Selecione o modo</h2>
+      <button class="btn primary" id="btnModeVoice">Modo Voz</button>
+      <button class="btn primary" id="btnModeBinary">Modo Binário</button>
+      <button class="btn primary" id="btnModeSearch">Modo Pesquisa</button>
+      <button class="btn small" data-back>⟵ Voltar</button>
+    </div>
+  </div>
+
+  <!-- ========== MODO VOZ ========== -->
+  <div id="voicePanel" class="panel center">
+    <div class="panel-content">
+      <h2>Modo Voz</h2>
+      <p class="instruction">
+        Fale normalmente; a palavra <strong>logo depois</strong> da palavra
+        de ativação será usada para uma pesquisa no Google.
+      </p>
+      <p class="instruction">
+        Palavra de ativação atual:
+        <strong id="voiceTriggerLabel">axis</strong>
+      </p>
+      <p id="voiceStatus">Aperte “Ouvir” para começar.</p>
+      <button class="btn primary" id="btnVoiceStart">Ouvir</button>
+      <button class="btn" id="btnVoiceStop">Parar</button>
+      <button class="btn small" data-back>⟵ Voltar</button>
+    </div>
+  </div>
+
+  <!-- ========== MODO BINÁRIO (TELA LIMPA, SÓ SWIPES) ========== -->
+  <div id="binaryPanel" class="panel">
+    <!-- Intencionalmente vazio: só captura swipes, nenhuma informação pública. -->
+  </div>
+
+  <!-- ========== SPRINGBOARD FAKE (TELA INICIAL) ========== -->
+  <div id="springboardPanel" class="panel">
+    <div class="springboard">
+      <div class="springboard-icons">
+        <!-- 12 ícones (alguns com ações secretas, outros só disfarce) -->
+        <div class="icon" data-action="filterVoice">
+          <div class="icon-img"></div>
+          <div class="icon-label">Mensagens</div>
+        </div>
+        <div class="icon" data-action="filterLetter">
+          <div class="icon-img"></div>
+          <div class="icon-label">Telefone</div>
+        </div>
+        <div class="icon" data-action="filterGroupSmallMan">
+          <div class="icon-img"></div>
+          <div class="icon-label">Arquivos</div>
+        </div>
+        <div class="icon" data-action="filterGroupBigMan">
+          <div class="icon-img"></div>
+          <div class="icon-label">Mapas</div>
+        </div>
+        <div class="icon" data-action="filterGroupSmallNat">
+          <div class="icon-img"></div>
+          <div class="icon-label">Fotos</div>
+        </div>
+        <div class="icon" data-action="filterGroupBigNat">
+          <div class="icon-img"></div>
+          <div class="icon-label">Notas</div>
+        </div>
+        <div class="icon" data-action="showFinal">
+          <div class="icon-img"></div>
+          <div class="icon-label">Resultado</div>
+        </div>
+
+        <!-- Ícones só pra disfarçar / receber outs -->
+        <div class="icon">
+          <div class="icon-img"></div>
+          <div class="icon-label">Safari</div>
+        </div>
+        <div class="icon">
+          <div class="icon-img"></div>
+          <div class="icon-label">Loja</div>
+        </div>
+        <div class="icon">
+          <div class="icon-img"></div>
+          <div class="icon-label">Música</div>
+        </div>
+        <div class="icon">
+          <div class="icon-img"></div>
+          <div class="icon-label">Calendário</div>
+        </div>
+        <div class="icon">
+          <div class="icon-img"></div>
+          <div class="icon-label">Relógio</div>
+        </div>
+      </div>
+
+      <div class="springboard-dock">
+        <!-- Dock: 4 ícones; esquerda e direita têm ações especiais -->
+        <div class="dock-icon" data-dock-action="voiceGoogle">
+          <div class="dock-img"></div>
+        </div>
+        <div class="dock-icon">
+          <div class="dock-img"></div>
+        </div>
+        <div class="dock-icon">
+          <div class="dock-img"></div>
+        </div>
+        <div class="dock-icon" data-dock-action="voiceLetterFilter">
+          <div class="dock-img"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn small springboard-back" data-back>⟵ Voltar</button>
+  </div>
+
+  <!-- OVERLAY: lista de todas as palavras (long press) -->
+  <div id="overlayPanel">
+    <pre id="overlayList"></pre>
+  </div>
+
+  <!-- ========== MODO PESQUISA (TELA FAKE GOOGLE) ========== -->
+  <div id="searchPanel" class="panel center">
+    <div class="panel-content">
+      <h2>Tela de Pesquisa</h2>
+      <div class="fake-google">
+        <div class="google-logo">Google</div>
+        <div class="google-searchbar" id="fakeSearchBar">
+          <span id="fakeSearchText">Toque aqui para “digitar”</span>
+        </div>
+        <p class="hint">
+          Você finge digitar, mas o app aciona o modo voz e faz a pesquisa REAL
+          no Google usando a palavra após o gatilho.
+        </p>
+      </div>
+      <p id="searchVoiceStatus">Aguardando...</p>
+      <button class="btn small" data-back>⟵ Voltar</button>
+    </div>
+  </div>
+
+  <!-- ========== CONFIGURAÇÕES SIMPLES ========== -->
+  <div id="settingsPanel" class="panel center">
+    <div class="panel-content">
+      <h2>Configurações</h2>
+
+      <label class="label">Gatilho do modo voz:</label>
+      <input type="text" id="inputVoiceTrigger" />
+
+      <label class="label">Gatilho do modo pesquisa:</label>
+      <input type="text" id="inputSearchTrigger" />
+
+      <p class="label">Imagem do SpringBoard:</p>
+      <button class="btn" id="btnChooseSpringboardImage">
+        Escolher imagem da galeria
+      </button>
+      <input
+        type="file"
+        id="springboardFilePicker"
+        accept="image/*"
+        style="display: none"
+      />
+
+      <button class="btn primary" id="btnSaveSettings">Salvar</button>
+      <button class="btn small" data-back>⟵ Voltar</button>
+    </div>
+  </div>
+</body>
+</html>
     justify-content: center;
     align-items: center;
   }
